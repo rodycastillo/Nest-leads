@@ -12,6 +12,7 @@ import {
 } from '@nestjs/common';
 import { LeadsService } from './leads.service';
 import { Lead } from './lead.entity';
+import { CreateLeadDto, UpdateLeadDto } from './dto';
 
 @Controller('leads')
 export class LeadsController {
@@ -35,15 +36,15 @@ export class LeadsController {
 
   @Post()
   // @HttpCode(HttpStatus.NO_CONTENT)
-  createLead(@Body('message') message: string): void {
+  createLead(@Body() message: CreateLeadDto): void {
     // return names;
     return this.leadService.createLead(message);
   }
 
   @Patch(':id')
-  updateLead(@Param('id') id: string, @Body() message): Lead {
+  updateLead(@Param('id') id: string, @Body() lead: UpdateLeadDto): Lead {
     // return `Your lead ${id} has been updated`;
-    return this.leadService.updateLead(id, message);
+    return this.leadService.updateLead(id, lead);
   }
 
   @Delete(':id')

@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Lead } from './lead.entity';
+import { CreateLeadDto, UpdateLeadDto } from './dto';
 
 @Injectable()
 export class LeadsService {
@@ -22,13 +23,13 @@ export class LeadsService {
     return lead;
   }
 
-  createLead(message: string) {
+  createLead({ message }: CreateLeadDto) {
     this.leads.push({
       id: (Math.floor(Math.random() * 2000) + 1).toString(),
       message,
     });
   }
-  updateLead(id: string, message: any) {
+  updateLead(id: string, { message }: UpdateLeadDto) {
     const lead: Lead = this.getLead(id);
 
     lead.message = message;
